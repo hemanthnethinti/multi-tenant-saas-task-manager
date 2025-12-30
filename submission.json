@@ -1,0 +1,165 @@
+{
+  "studentInfo": {
+    "name": "Your Name Here",
+    "email": "your.email@example.com",
+    "studentId": "YOUR_STUDENT_ID"
+  },
+  "projectInfo": {
+    "repositoryUrl": "https://github.com/yourusername/multi-tenant-saas-task-manager",
+    "dockerComposeVersion": "3.8",
+    "services": ["database", "backend", "frontend"]
+  },
+  "portMappings": {
+    "database": "5432:5432",
+    "backend": "5000:5000",
+    "frontend": "3000:3000"
+  },
+  "testCredentials": {
+    "superAdmin": {
+      "email": "superadmin@system.com",
+      "password": "SuperAdmin@123",
+      "role": "super_admin",
+      "description": "System super administrator with access to all tenants"
+    },
+    "tenants": [
+      {
+        "tenantName": "Acme Corporation",
+        "subdomain": "acme",
+        "plan": "pro",
+        "tenantAdmin": {
+          "email": "admin@acme.com",
+          "password": "Admin@123",
+          "role": "tenant_admin",
+          "firstName": "John",
+          "lastName": "Doe"
+        },
+        "regularUsers": [
+          {
+            "email": "user1@acme.com",
+            "password": "User@123",
+            "role": "user",
+            "firstName": "Alice",
+            "lastName": "Smith"
+          },
+          {
+            "email": "user2@acme.com",
+            "password": "User@123",
+            "role": "user",
+            "firstName": "Bob",
+            "lastName": "Johnson"
+          }
+        ],
+        "sampleProjects": [
+          {
+            "name": "Website Redesign",
+            "description": "Redesign company website with modern UI",
+            "tasks": [
+              {
+                "title": "Design mockups",
+                "description": "Create initial design mockups",
+                "status": "in_progress",
+                "priority": "high"
+              },
+              {
+                "title": "Implement frontend",
+                "description": "Build React components",
+                "status": "pending",
+                "priority": "medium"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tenantName": "TechStart Inc",
+        "subdomain": "techstart",
+        "plan": "free",
+        "tenantAdmin": {
+          "email": "admin@techstart.com",
+          "password": "Admin@123",
+          "role": "tenant_admin",
+          "firstName": "Sarah",
+          "lastName": "Williams"
+        },
+        "regularUsers": [
+          {
+            "email": "developer@techstart.com",
+            "password": "User@123",
+            "role": "user",
+            "firstName": "Mike",
+            "lastName": "Chen"
+          }
+        ],
+        "sampleProjects": [
+          {
+            "name": "Mobile App Development",
+            "description": "Build iOS and Android app",
+            "tasks": [
+              {
+                "title": "Setup project structure",
+                "description": "Initialize React Native project",
+                "status": "completed",
+                "priority": "high"
+              },
+              {
+                "title": "API Integration",
+                "description": "Connect to backend APIs",
+                "status": "in_progress",
+                "priority": "high"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "healthCheck": {
+    "endpoint": "/api/health",
+    "expectedStatus": 200,
+    "expectedFields": ["success", "message", "timestamp", "database"]
+  },
+  "databaseInitialization": {
+    "migrationsAutoRun": true,
+    "seedDataAutoLoad": true,
+    "initializationMethod": "automatic_on_startup",
+    "description": "Database migrations and seed data load automatically when backend service starts"
+  },
+  "apiEndpoints": {
+    "baseUrl": "http://localhost:5000",
+    "authentication": [
+      "POST /api/auth/register",
+      "POST /api/auth/login",
+      "GET /api/auth/me"
+    ],
+    "tenantManagement": [
+      "GET /api/tenants",
+      "GET /api/tenants/:id",
+      "PUT /api/tenants/:id",
+      "DELETE /api/tenants/:id"
+    ],
+    "userManagement": [
+      "GET /api/users",
+      "POST /api/users",
+      "GET /api/users/:id",
+      "PUT /api/users/:id",
+      "DELETE /api/users/:id"
+    ],
+    "projectManagement": [
+      "GET /api/projects",
+      "POST /api/projects",
+      "GET /api/projects/:id",
+      "PUT /api/projects/:id",
+      "DELETE /api/projects/:id"
+    ],
+    "taskManagement": [
+      "GET /api/tasks",
+      "POST /api/tasks",
+      "GET /api/tasks/:id",
+      "PUT /api/tasks/:id",
+      "DELETE /api/tasks/:id"
+    ],
+    "health": [
+      "GET /api/health"
+    ]
+  }
+}
