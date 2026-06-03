@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { logout } from '../services/api';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext.jsx";
+import { logout } from "../services/api.jsx";
 
 function Layout({ children }) {
   const { user, logoutUser, isSuperAdmin, isTenantAdmin } = useAuth();
@@ -14,7 +14,7 @@ function Layout({ children }) {
       // ignore
     }
     logoutUser();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -24,10 +24,16 @@ function Layout({ children }) {
           <div className="header-left">
             <h1 className="app-logo">TaskFlow</h1>
             <nav className="main-nav">
-              <Link to="/dashboard" className="nav-link">Dashboard</Link>
-              <Link to="/projects" className="nav-link">Projects</Link>
+              <Link to="/dashboard" className="nav-link">
+                Dashboard
+              </Link>
+              <Link to="/projects" className="nav-link">
+                Projects
+              </Link>
               {(isTenantAdmin || isSuperAdmin) && (
-                <Link to="/users" className="nav-link">Users</Link>
+                <Link to="/users" className="nav-link">
+                  Users
+                </Link>
               )}
             </nav>
           </div>
@@ -45,9 +51,7 @@ function Layout({ children }) {
           </div>
         </div>
       </header>
-      <main className="app-main">
-        {children}
-      </main>
+      <main className="app-main">{children}</main>
     </div>
   );
 }

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { registerTenant } from '../services/api';
-import '../styles/Auth.css';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { registerTenant } from "../services/api.jsx";
+import "../styles/Auth.css";
 
 function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    tenantName: '',
-    subdomain: '',
-    adminEmail: '',
-    adminFullName: '',
-    adminPassword: '',
-    confirmPassword: ''
+    tenantName: "",
+    subdomain: "",
+    adminEmail: "",
+    adminFullName: "",
+    adminPassword: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -23,11 +23,11 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setErrors([]);
 
     if (formData.adminPassword !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
@@ -38,14 +38,14 @@ function Register() {
         subdomain: formData.subdomain,
         adminEmail: formData.adminEmail,
         adminFullName: formData.adminFullName,
-        adminPassword: formData.adminPassword
+        adminPassword: formData.adminPassword,
       });
 
-      alert('Registration successful! Please login.');
-      navigate('/login');
+      alert("Registration successful! Please login.");
+      navigate("/login");
     } catch (err) {
       const errorData = err.response?.data;
-      setError(errorData?.message || 'Registration failed');
+      setError(errorData?.message || "Registration failed");
       setErrors(errorData?.errors || []);
     } finally {
       setLoading(false);
@@ -61,7 +61,7 @@ function Register() {
         {error && <div className="error-message">{error}</div>}
         {errors.length > 0 && (
           <div className="error-message">
-            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+            <ul style={{ margin: 0, paddingLeft: "20px" }}>
               {errors.map((err, idx) => (
                 <li key={idx}>{err}</li>
               ))}
@@ -147,8 +147,12 @@ function Register() {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary btn-lg" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Create Account'}
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg"
+            disabled={loading}
+          >
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
 
           <p className="auth-link">
