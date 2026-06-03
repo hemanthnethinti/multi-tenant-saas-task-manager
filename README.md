@@ -1,156 +1,179 @@
-# 🚀 TaskFlow - Multi-Tenant SaaS Task Management Platform
+# TaskFlow - Multi-Tenant SaaS Task Management Platform
 
-A production-ready, multi-tenant SaaS application with Node.js, React, PostgreSQL, and Docker. **Fully CRUD-enabled on all pages with complete data binding.**
+This is a complete task management system for multiple organizations. Built with Node.js, React, PostgreSQL, and Docker. Everything works out of the box with role-based access control and proper data separation between companies.
 
-## ✨ Features
+Repository: https://github.com/hemanthnethinti/multi-tenant-saas-task-manager
 
-- **Multi-Tenancy**: Complete data isolation between organizations  
-- **RBAC**: Super Admin, Tenant Admin, and User roles
-- **Subscription Plans**: Free, Pro, Enterprise with limits
-- **Project & Task Management**: Complete CRUD (Create, Read, Update, Delete)
-- **User Management**: Add, edit, remove team members
-- **Dashboard**: Real-time statistics and quick actions
-- **Responsive UI**: Modern design with inline forms and confirmations
-- **Docker Ready**: One-command deployment
+## What This Does
 
-## 🚀 Quick Start
+- Multi-tenancy with data isolation between organizations
+- Three user roles: Super Admin, Tenant Admin, and User with different permissions
+- Projects and tasks that you can create, edit, and delete
+- User management for adding team members
+- Dashboard showing stats and info
+- Everything containerized with Docker
+- JWT tokens for authentication
+- Tracks who did what with audit logs
+
+## Getting Started with Docker
+
+What you need:
+
+- Docker and Docker Compose installed
+- Ports 3000, 5000, and 5432 available
+
+Running it:
 
 ```bash
-# Start all services
+# Get the code
+git clone https://github.com/hemanthnethinti/multi-tenant-saas-task-manager.git
+cd multi-tenant-saas-task-manager
+
+# Start everything
 docker-compose up -d
 
-# Access application
-# Frontend: http://localhost:3001
-# Backend API: http://localhost:5001
-# Database: localhost:5433
-# Health Check: http://localhost:5001/api/health
+# Check if it's running
+docker ps
+
+# Test the backend is working
+curl http://localhost:5000/api/health
 ```
 
-## 📋 Default Credentials
+Then open these in your browser:
 
-**Acme Tenant (test with this)**:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+- Check health: http://localhost:5000/api/health
+
+## Test Accounts
+
+Super Admin:
+
+```
+Email: superadmin@system.com
+Password: SuperAdmin@123
+```
+
+Acme Tenant (already set up):
+
 ```
 Email: admin@acme.com
 Password: Admin@123
 Subdomain: acme
 ```
 
-**Additional Users**:
+Other Acme users:
+
 ```
-user@acme.com / User@123
-user2@acme.com / User@123
-```
-
-## ✅ Fully Implemented Features
-
-### Projects Page (`/projects`)
-- ✅ List all projects with details
-- ✅ Create new project (inline form)
-- ✅ Edit project (inline form)
-- ✅ Delete project (with confirmation)
-- ✅ View project tasks
-
-### Users Page (`/users`)
-- ✅ List all tenant users
-- ✅ Add new user (with email, password, name, role)
-- ✅ Edit user (update name and role)
-- ✅ Remove user (with confirmation)
-- ✅ Role selection (User / Tenant Admin)
-
-### Project Details Page (`/projects/:id`)
-- ✅ List all tasks in project
-- ✅ Create new task (with priority, assignee, due date)
-- ✅ Update task status (To Do → In Progress → Done)
-- ✅ Edit task details
-- ✅ Delete task (with confirmation)
-- ✅ Assign tasks to users
-
-### Dashboard (`/dashboard`)
-- ✅ Real-time statistics (Projects, Users, Tasks, Plan)
-- ✅ Recent projects widget
-- ✅ Quick action buttons
-- ✅ Plan display with color coding
-
-## 🛠 Tech Stack
-
-- **Backend**: Node.js 18 + Express + PostgreSQL 15
-- **Frontend**: React 18 + React Router v6 + Axios
-- **Database**: PostgreSQL with shared-schema multi-tenancy
-- **DevOps**: Docker + Docker Compose
-- **Auth**: JWT tokens with RBAC
-- **Styling**: CSS Grid, modern design system
-
-## 🔌 API Endpoints (19 Total)
-
-### Authentication (4)
-```
-POST   /api/auth/register     - Register new tenant
-POST   /api/auth/login        - Login with credentials
-GET    /api/auth/me           - Get current user
-POST   /api/auth/logout       - Logout
+Email: user1@acme.com / Password: User@123
+Email: user2@acme.com / Password: User@123
 ```
 
-### Tenants (3)
-```
-GET    /api/tenants           - List all tenants (super admin)
-GET    /api/tenants/:id       - Get tenant details
-PUT    /api/tenants/:id       - Update tenant
-```
+TechStart Tenant (already set up):
 
-### Users (4)
 ```
-GET    /api/users/tenants/:tenantId/users        - List users
-POST   /api/users/tenants/:tenantId/users        - Add user
-PUT    /api/users/:id                             - Update user
-DELETE /api/users/:id                             - Delete user
+Email: admin@techstart.com
+Password: Admin@123
+Subdomain: techstart
 ```
 
-### Projects (4)
-```
-GET    /api/projects          - List projects
-POST   /api/projects          - Create project
-PUT    /api/projects/:id      - Update project
-DELETE /api/projects/:id      - Delete project
-```
+## Features Implemented
 
-### Tasks (5)
-```
-GET    /api/tasks/projects/:projectId/tasks      - List tasks
-POST   /api/tasks/projects/:projectId/tasks      - Create task
-PUT    /api/tasks/:id                             - Update task
-PATCH  /api/tasks/:id/status                     - Update status only
-DELETE /api/tasks/:id                             - Delete task
-```
+Projects Page (/projects):
 
-### Health (1)
-```
-GET    /api/health            - Health check
-```
+- List all projects with details
+- Create new project with inline form
+- Edit project information
+- Delete project with confirmation
+- View all tasks in a project
 
-## 📊 Database Schema
+Users Page (/users):
 
-**Multi-tenant shared schema** with automatic tenant isolation:
+- List all users in your organization
+- Add new users with email, password, name, and role
+- Edit user information and role
+- Remove users with confirmation
+- Change user role from User to Tenant Admin
 
-- `tenants` - Organization data (Free/Pro/Enterprise plans)
-- `users` - Team members with roles (encrypted passwords)
-- `projects` - Project records with status tracking
-- `tasks` - Task items with status, priority, assignees
-- `audit_logs` - Track all user actions
+Project Details Page (/projects/:id):
 
-## 🧪 Testing
+- See all tasks for a project
+- Create new task with priority, assignee, and due date
+- Change task status from pending to in progress to done
+- Edit task details
+- Delete task with confirmation
+- Assign tasks to team members
 
-See [TEST_ALL_FEATURES.md](TEST_ALL_FEATURES.md) for complete testing guide with scenarios.
+Dashboard (/dashboard):
 
-## 🔐 Security Features
+- Shows statistics about your organization
+- Displays recent projects
+- Quick action buttons
+- Shows your subscription plan
 
-- ✅ Encrypted passwords with bcryptjs
-- ✅ JWT authentication with expiry
-- ✅ Multi-tenant data isolation
-- ✅ Role-Based Access Control (RBAC)
-- ✅ Input validation and sanitization
-- ✅ CORS protection
-- ✅ Audit logging for compliance
-- ✅ Environment-based secrets
+## Tech Stack
+
+Backend: Node.js 18 with Express and PostgreSQL 15
+Frontend: React 18 with React Router v6 and Axios
+Database: PostgreSQL with multi-tenant schema
+Deployment: Docker and Docker Compose
+Authentication: JWT tokens with role-based access
+Styling: CSS Grid and modern CSS
+
+## API Endpoints (19 Total)
+
+Authentication (4 endpoints):
+POST /api/auth/register - Create new organization and admin user
+POST /api/auth/login - Login with credentials
+GET /api/auth/me - Get info about logged in user
+POST /api/auth/logout - Logout
+
+Tenants (3 endpoints):
+GET /api/tenants - List all organizations (super admin only)
+GET /api/tenants/:id - Get details about an organization
+PUT /api/tenants/:id - Update organization info
+
+Users (4 endpoints):
+GET /api/users/tenants/:tenantId/users - List users in organization
+POST /api/users/tenants/:tenantId/users - Add new user
+PUT /api/users/:id - Update user info
+DELETE /api/users/:id - Remove user
+
+Projects (4 endpoints):
+GET /api/projects - Get all projects
+POST /api/projects - Create new project
+PUT /api/projects/:id - Update project
+DELETE /api/projects/:id - Delete project
+
+Tasks (5 endpoints):
+GET /api/tasks/projects/:projectId/tasks - Get all tasks in project
+POST /api/tasks/projects/:projectId/tasks - Create new task
+PUT /api/tasks/:id - Update task details
+PATCH /api/tasks/:id/status - Change task status only
+DELETE /api/tasks/:id - Delete task
+
+Health (1 endpoint):
+GET /api/health - Check if system is working
+
+## Database
+
+Uses PostgreSQL with 5 tables:
+
+- tenants: Organization data with plan info
+- users: Team members with roles and passwords
+- projects: Project records
+- tasks: Individual tasks with status and priority
+- audit_logs: History of all actions
+
+## What Makes This Secure
+
+- Passwords are hashed with bcryptjs before storing
+- JWT tokens expire after 24 hours
+- Each organization only sees their own data
+- Different roles have different permissions
+- All inputs are validated before processing
+- Passwords are checked when logging in
+- API calls verify you're allowed to do them
 
 ## 🚀 Deployment Ready
 
@@ -179,27 +202,32 @@ See [TEST_ALL_FEATURES.md](TEST_ALL_FEATURES.md) for complete testing guide with
 - [x] Data binding and real-time updates
 - [x] Error handling and validation
 - [x] Docker containerization
-- [x] Environment configuration
-- [x] Health checks
-- [x] Audit logging
-- [x] Multi-tenant isolation
-- [x] Responsive UI design
-- [PRD](docs/PRD.md)
-- [Architecture](docs/architecture.md)
-- [API Docs](docs/API.md)
+- Environment configuration
+- Health checks
+- Audit logging
+- Multi-tenant data isolation
+- Responsive UI design
 
-## 🐳 Docker Commands
+See documentation in the docs/ folder:
 
-```bash
-docker-compose up -d      # Start
-docker-compose ps         # Status
-docker-compose logs -f    # Logs
-docker-compose down       # Stop
-```
+- Product Requirements: docs/PRD.md
+- System Architecture: docs/architecture.md
+- API Documentation: docs/API.md
 
-### Notes
-- If ports `3000`/`5000`/`5432` are occupied locally, this project maps to `3001`/`5001`/`5433` respectively in `docker-compose.yml`.
+## Docker Commands
 
----
+Start everything:
+docker-compose up -d
 
-See [docs/](docs/) for complete documentation.
+Check status:
+docker-compose ps
+
+View logs:
+docker-compose logs -f
+
+Stop everything:
+docker-compose down
+
+Note: If ports 3000, 5000, or 5432 are already in use, the docker-compose.yml maps to 3001, 5001, and 5433 instead.
+
+For more information, see the docs folder.
