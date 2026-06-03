@@ -34,7 +34,7 @@ services:
       JWT_SECRET: super_secret_jwt_key_change_in_production_2024
       JWT_EXPIRES_IN: 24h
       # Frontend origin for CORS
-      FRONTEND_URL: http://frontend:3000
+      FRONTEND_URL: http://localhost:3000
     ports:
       - "5000:5000"
     depends_on:
@@ -49,10 +49,10 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_URL: http://backend:5000
+        REACT_APP_API_URL: http://localhost:5000
     container_name: frontend
     environment:
-      REACT_APP_API_URL: http://backend:5000
+      REACT_APP_API_URL: http://localhost:5000
     ports:
       - "3000:3000"
     depends_on:

@@ -5,9 +5,10 @@
     "studentId": "YOUR_STUDENT_ID"
   },
   "projectInfo": {
-    "repositoryUrl": "https://github.com/yourusername/multi-tenant-saas-task-manager",
+    "repositoryUrl": "https://github.com/hemanthnethinti/multi-tenant-saas-task-manager",
     "dockerComposeVersion": "3.8",
-    "services": ["database", "backend", "frontend"]
+    "services": ["database", "backend", "frontend"],
+    "description": "Production-ready multi-tenant SaaS task management platform with Node.js backend and React frontend"
   },
   "portMappings": {
     "database": "5432:5432",
